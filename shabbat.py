@@ -2,7 +2,8 @@ from bottle import route, run
 import urllib2
 import json
 import requests
-import dateparser
+# import dateparser
+import dateutil.parser
 
 def getHebcal(zip):
     url = "http://www.hebcal.com/shabbat"
@@ -13,10 +14,12 @@ def getHebcal(zip):
     return json.loads(r.text) 
 
 def shabbat_starts(date,time):
-    print("Shabbat Starts:" + date + " " + time)
+    # I should probably clean this up
+    print("Shabbat Starts: " + date + " " + time)
     
 def havdalah_starts(date,time):
-    print("Havdalah Starts:" + date + " " + time)
+    # I should probably clean this up
+    print("Havdalah Starts: " + date + " " + time)
 
 def getCandleTime(obj): 
     candle = obj['items'][0]
@@ -39,12 +42,12 @@ def getHavdalahTime(obj):
         havdalah_starts(formatDate(havdalah['date']),formatTime(havdalah['date']))
         
 def formatDate(dt):
-    dt_obj = dateparser.parse(dt)
-    date = dt_obj.strftime('%A, %B %M')
+    dt_obj = dateutil.parser.parse(dt)
+    date = dt_obj.strftime('%A, %B %d')
     return date
 
 def formatTime(dt):
-    dt_obj = dateparser.parse(dt)
+    dt_obj = dateutil.parser.parse(dt)
     time = dt_obj.strftime('%I:%M %p')
     return time
 
