@@ -1,8 +1,6 @@
 from bottle import route, run
-import urllib2
 import json
 import requests
-# import dateparser
 import dateutil.parser
 
 def getHebcal(zip):
