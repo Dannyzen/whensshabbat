@@ -61,8 +61,10 @@ class Form extends Component {
                     <input type="text" ref={this.refZipCode} placeholder="Zip code"/>
                     <button onClick={this.send}>Submit</button>
                 </div>
+                <div style= {{color: '#000'}}>
                 {res ? <Holiday item={res.items.filter(item=>item.category === 'candles')[0]}/> : false}
                 {res ? <Holiday item={res.items.filter(item=>item.category === 'havdalah')[0]}/> : false}
+                </div>
             </div>
         );
     }
