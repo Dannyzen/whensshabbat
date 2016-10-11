@@ -34,7 +34,7 @@ class Form extends Component {
         const zip = this._zipCode.value;
 
 
-        request.get('http://www.hebcal.com/shabbat/').query({'cfg': 'json', 'm': 50, 'b': 18, 'zip': zip, 'a': 'on'})
+        request.get('https://www.hebcal.com/shabbat/').query({'cfg': 'json', 'm': 50, 'b': 18, 'zip': zip, 'a': 'on'})
             .end((err, res) => {
                 if (err) {
                     // hsndle re
