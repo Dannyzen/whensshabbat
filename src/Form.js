@@ -58,7 +58,7 @@ class Form extends Component {
             <div>
                 <h1>What time is Shabbat?</h1>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <input type="text" ref={this.refZipCode} placeHolder="Zip code"/>
+                    <input type="text" ref={this.refZipCode} placeholder="Zip code"/>
                     <button onClick={this.send}>Submit</button>
                 </div>
                 {res ? <Holiday item={res.items.filter(item=>item.category === 'candles')[0]}/> : false}
