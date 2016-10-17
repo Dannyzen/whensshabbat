@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import request from 'superagent';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
+const regex = /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/;
 
 class Holiday extends Component {
 
@@ -28,10 +32,9 @@ class Form extends Component {
         this.state = {res: false};
     }
 
-    send = ()=> {
+    send = zip=> {
 
 
-        const zip = this._zipCode.value;
 
 
         request.get('https://www.hebcal.com/shabbat/').query({'cfg': 'json', 'm': 50, 'b': 18, 'zip': zip, 'a': 'on'})
@@ -48,6 +51,11 @@ class Form extends Component {
 
     refZipCode = c=>this._zipCode = c;
 
+    zipCodeChange = event=> {
+        if(event.target.value.match(regex))
+            this.send(event.target.value);
+    };
+
     render() {
 
         const {res} = this.state;
@@ -58,12 +66,13 @@ class Form extends Component {
             <div>
                 <h1>What time is Shabbat?</h1>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <input type="text" ref={this.refZipCode} placeholder="Zip code"/>
-                    <button onClick={this.send}>Submit</button>
+                    <TextField floatingLabelText='Enter your zip code' autoFocus={true} onChange={this.zipCodeChange}/>
+                    {/*<input type="text" ref={this.refZipCode} placeholder="Zip code"/>*/}
+                    {/*<button onClick={this.send}>Submit</button>*/}
                 </div>
-                <div style= {{color: '#000'}}>
-                {res ? <Holiday item={res.items.filter(item=>item.category === 'candles')[0]}/> : false}
-                {res ? <Holiday item={res.items.filter(item=>item.category === 'havdalah')[0]}/> : false}
+                <div style={{color: '#000'}}>
+                    {res ? <Holiday item={res.items.filter(item=>item.category === 'candles')[0]}/> : false}
+                    {res ? <Holiday item={res.items.filter(item=>item.category === 'havdalah')[0]}/> : false}
                 </div>
             </div>
         );
